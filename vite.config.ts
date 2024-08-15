@@ -7,23 +7,22 @@ import Unfonts from 'unplugin-fonts/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  build: {
-    outDir: 'docs'
-  },
-  plugins: [
-    vue(),
-    vueJsx(),
-    Unfonts({
-      google: {
-        families: [
-          'Noto Sans JP'
-        ],
-      }
-    }),
-  ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+ base: './',
+ build: {
+  outDir: 'docs'
+ },
+ plugins: [
+  vue(),
+  vueJsx(),
+  Unfonts({
+   google: {
+    families: ['Noto Sans JP']
+   }
+  })
+ ],
+ resolve: {
+  alias: {
+   '@': fileURLToPath(new URL('./src', import.meta.url))
   }
+ }
 })
