@@ -6,7 +6,7 @@ const router = createRouter({
  routes: [
   {
    path: '/',
-   name: 'BrainStorming',
+   name: 'Home',
    component: BrainStorming
   },
   {
