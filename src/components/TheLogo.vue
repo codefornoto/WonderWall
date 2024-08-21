@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import logo from '@/images/logo.png'
-import qr from '@/images/qr.png'
+import logo from '@/images/LOGO_white.png'
+import qr from '@/images/qr.jpg'
 
 const currentTime = ref('')
 

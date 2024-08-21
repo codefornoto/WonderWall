@@ -60,7 +60,7 @@ watch(
 
 <template>
  <v-card
- v-if="$props.visibility"
+  v-if="$props.visibility"
   :color="color"
   :text="$props.アイデア"
   height="22vh"

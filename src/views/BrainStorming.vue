@@ -74,8 +74,8 @@ async function getData() {
 
 onMounted(async () => {
  await getData()
-  setInterval(getData, 10000)
-  intervalId = setInterval(triggerTransitions, 5000)
+ setInterval(getData, 30000)
+ intervalId = setInterval(triggerTransitions, 5000)
 })
 </script>
 
