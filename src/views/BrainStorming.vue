@@ -11,26 +11,31 @@ type Idea = {
  タイムスタンプ: string
  ニックネーム: string
 }
-const messagesLeft = ref<Idea[]>([])
-const messagesRight = ref<Idea[]>([])
-const count = ref<number>(0)
+
+let category = ['']
+
+const iterationCount = ref<number>(0)
+const ideaLeft = ref<Idea[]>([])
+const ideaRight = ref<Idea[]>([])
 const randomNumberLeft = getRandomNumbers()
 const randomNumberRight = getRandomNumbers()
-// const showMessage = ref<boolean>(true)
-const showMessage = ref<boolean[]>(Array(12).fill(false)) // 各 StickyNote の表示状態を管理
+const showMessage = ref<boolean>(true)
+const dataLeft = ref<Idea[]>([])
+const dataRight = ref<Idea[]>([])
+// const showMessage = ref<boolean[]>(Array(12).fill(false)) // 各 StickyNote の表示状態を管理
 
 let intervalId: number | null = null
 
-const triggerTransitions = () => {
- messagesLeft.value.forEach((_, i) => {
-  setTimeout(() => {
-   showMessage.value[i] = false
-   setTimeout(() => {
-    showMessage.value[i] = true
-   }, 1000)
-  }, i * 1000)
- })
-}
+// const triggerTransitions = () => {
+//  ideaLeft.value.forEach((_, i) => {
+//   setTimeout(() => {
+//    showMessage.value[i] = false
+//    setTimeout(() => {
+//     showMessage.value[i] = true
+//    }, 100000)
+//   }, i * 100000)
+//  })
+// }
 
 // 取得したデータをランダムに入れ替え
 function shuffleArray<Idea>(array: Idea[]): Idea[] {
@@ -45,7 +50,8 @@ function shuffleArray<Idea>(array: Idea[]): Idea[] {
 function getRandomNumbers(): number[] {
  const numbers = Array.from({ length: 12 }, (_, i) => i + 1)
  const shuffled = numbers.sort(() => Math.random() - 0.5)
- return shuffled.slice(0, 9)
+ //  return shuffled.slice(0, 10)
+ return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 }
 
 // データを右側と左側用に半分に
@@ -63,20 +69,64 @@ function splitData(data: Idea[]): { data1: Idea[]; data2: Idea[] } {
  return { data1, data2 }
 }
 
+// カテゴリごとにリストを整理
+function groupByCategory(ideas: Idea[]): Record<string, Idea[]> {
+ return ideas.reduce(
+  (acc, idea) => {
+   if (!acc[idea.カテゴリ]) {
+    acc[idea.カテゴリ] = []
+   }
+   acc[idea.カテゴリ].push(idea)
+   return acc
+  },
+  {} as Record<string, Idea[]>
+ )
+}
+
+// カテゴリのリストを抽出
+function extractCategories(ideas: Idea[]): string[] {
+ const categories = ideas.map((idea) => idea.カテゴリ)
+ return Array.from(new Set(categories))
+}
+
 // GAS経由でスプシからデータ取得
 async function getData() {
- const data: Idea[] = await GetData.get()
- const shuffleData: Idea[] = shuffleArray(data)
+ //  カテゴリを一周したらリセット
+ if (iterationCount.value == category.length) {
+  iterationCount.value = 0
+ }
+ const idea: Idea[] = await GetData.get()
+ category = extractCategories(idea)
+ const sortedIdea = groupByCategory(idea)
+ const shuffleData: Idea[] = shuffleArray(sortedIdea[category[iterationCount.value]])
  const { data1, data2 } = splitData(shuffleData)
- messagesLeft.value = data1
- messagesRight.value = data2
+ dataLeft.value = data1
+ dataRight.value = data2
+ ideaLeft.value = data1
+ ideaRight.value = data2
+}
+
+function changeData() {
+ ideaLeft.value[1] = dataLeft.value[13]
+ console.log('test')
+ console.log(ideaLeft.value[1])
+ console.log(dataLeft.value[14])
 }
 
 onMounted(async () => {
  await getData()
- setInterval(getData, 30000)
- intervalId = setInterval(triggerTransitions, 5000)
 })
+
+const polling = () => {
+ setTimeout(async () => {
+  iterationCount.value++
+  await getData()
+  changeData()
+  console.log('polling')
+  polling() // 再帰呼び出し
+ }, 6000)
+}
+polling()
 </script>
 
 <template>
@@ -93,9 +143,9 @@ onMounted(async () => {
      >
       <v-fade-transition>
        <StickyNote
-        v-show="messagesLeft[index] != undefined && randomNumberLeft?.includes(index)"
-        v-bind="messagesLeft[index]"
-        :visibility="showMessage[index]"
+        v-show="ideaLeft[index - 1] != undefined && randomNumberLeft?.includes(index - 1)"
+        v-bind="ideaLeft[index - 1]"
+        :visibility="showMessage"
        />
       </v-fade-transition>
      </v-col>
@@ -116,9 +166,9 @@ onMounted(async () => {
      >
       <v-fade-transition>
        <StickyNote
-        v-if="messagesRight[index] != undefined && randomNumberRight?.includes(index)"
-        v-bind="messagesRight[index]"
-        :visibility="showMessage[index]"
+        v-if="ideaRight[index] != undefined && randomNumberRight?.includes(index)"
+        v-bind="ideaRight[index]"
+        :visibility="showMessage"
        />
       </v-fade-transition>
      </v-col>
