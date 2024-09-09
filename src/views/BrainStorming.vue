@@ -14,9 +14,10 @@ type Idea = {
 }
 
 const route = useRoute()
-let category = ['']
 
+let category = ['']
 const iterationCount = ref<number>(0)
+const activeNoteNumber = ref<number>(0)
 const ideaLeft = ref<Idea[]>([])
 const ideaRight = ref<Idea[]>([])
 const randomNumberLeft = getRandomNumbers()
@@ -108,6 +109,7 @@ async function getData() {
  ideaRight.value = data2
 }
 
+// 表示内容の更新処理
 function changeData() {
  ideaLeft.value[1] = dataLeft.value[13]
  console.log('test')
