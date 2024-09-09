@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import TheLogo from '../components/TheLogo.vue'
 import GetData from '../services/getData'
 import StickyNote from '../components/StickyNote.vue'
@@ -12,6 +13,7 @@ type Idea = {
  ニックネーム: string
 }
 
+const route = useRoute()
 let category = ['']
 
 const iterationCount = ref<number>(0)
@@ -95,7 +97,7 @@ async function getData() {
  if (iterationCount.value == category.length) {
   iterationCount.value = 0
  }
- const idea: Idea[] = await GetData.get()
+ const idea: Idea[] = await GetData.get(route.query.sheetName as string)
  category = extractCategories(idea)
  const sortedIdea = groupByCategory(idea)
  const shuffleData: Idea[] = shuffleArray(sortedIdea[category[iterationCount.value]])
