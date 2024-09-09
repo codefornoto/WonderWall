@@ -6,17 +6,8 @@ const router = createRouter({
  routes: [
   {
    path: '/',
-   name: 'Home',
+   name: 'WonderWall',
    component: BrainStorming
-  },
-  {
-   path: '/BrainStorming',
-   name: 'BrainStorming',
-   // route level code-splitting
-   // this generates a separate chunk (About.[hash].js) for this route
-   // which is lazy-loaded when the route is visited.
-   component: BrainStorming
-   // component: () => import('../views/StickyNotes.vue')
   }
  ]
 })
