@@ -83,9 +83,7 @@ function groupByCategory(ideas: Idea[]): Record<string, Idea[]> {
 
 // 背景スタイルを動的に生成
 const backgroundStyle = computed(() => ({
- backgroundImage: backgroundImageUrl.value
-  ? backgroundImageUrl.value
-  : 'url("@/images/wakura_night_view.jpg")',
+ backgroundImage: backgroundImageUrl.value,
  backgroundSize: 'cover',
  backgroundPosition: 'center',
  width: '100vw',
