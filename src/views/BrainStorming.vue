@@ -156,7 +156,7 @@ const updateNotes = () => {
 }
 
 watch(
- () => categoryCount.value,
+ () => categoryCount,
  () => {
   backgroundImageUrl.value = getRandomImageUrl()
  },
