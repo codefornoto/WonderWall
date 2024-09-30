@@ -44,12 +44,13 @@ function getRandomImageUrl(): string {
 
 // 付箋を表示する位置を決定する
 function getRandomNumbers(): number[] {
- const numbers = Array.from({ length: 12 }, (_, i) => i + 1)
+ const numbers = Array.from({ length: 11 }, (_, i) => i + 1)
  const shuffled = numbers.sort(() => Math.random() - 0.5)
  if (mode === 'demo') {
-  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
  } else {
-  return shuffled.slice(0, 11)
+  console.log(shuffled.slice(0, 10))
+  return shuffled.slice(0, 10)
  }
 }
 
@@ -197,8 +198,8 @@ const updateNotes = () => {
      >
       <v-fade-transition>
        <StickyNote
-        v-show="ideaRight[index] != undefined && randomNumberRight?.includes(index)"
-        v-bind="ideaRight[index]"
+        v-show="ideaRight[index - 1] != undefined && randomNumberRight?.includes(index - 1)"
+        v-bind="ideaRight[index - 1]"
         :visibility="showMessage[index - 1]"
        />
       </v-fade-transition>
