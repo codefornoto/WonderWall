@@ -132,12 +132,13 @@ onMounted(async () => {
 })
 
 // 5分=300秒に一度データを再取得
-const polling = () => {
+const polling = async () => {
+ backgroundImageUrl.value = getRandomImageUrl()
+ noteIterationCount.value = 0
+ activeNoteNumber.value = 0
+ await getData()
  setTimeout(async () => {
   categoryCount.value++
-  noteIterationCount.value = 0
-  activeNoteNumber.value = 0
-  await getData()
   polling()
  }, interval)
 }
@@ -154,14 +155,6 @@ const updateNotes = () => {
   updateNotes()
  }, 2000)
 }
-
-watch(
- () => categoryCount,
- () => {
-  backgroundImageUrl.value = getRandomImageUrl()
- },
- { deep: true }
-)
 </script>
 
 <template>
