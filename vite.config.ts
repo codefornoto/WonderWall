@@ -7,10 +7,7 @@ import Unfonts from 'unplugin-fonts/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
- define: {
-  'process.env': {}
- },
- base: process.env.GITHUB_PAGES ? '/WonderWall/' : './',
+ base: '/WonderWall',
  build: {
   outDir: 'docs'
  },
