@@ -28,7 +28,8 @@ const dataRight = ref<Idea[]>([])
 const showMessage = ref<boolean[]>(Array(12).fill(true))
 // 初期背景画像のURLをセット
 const backgroundImageUrl = ref('url("https://codefornoto.github.io/images/wakura_night_view.jpg")')
-const interval = route.query.interval ? Number(route.query.interval) : 300000
+const polling = route.query.polling ? Number(route.query.polling) : 300000
+const interval = route.query.interval ? Number(route.query.interval) : 50000
 
 function getRandomImageUrl(): string {
  const imageUrls = [
@@ -126,22 +127,16 @@ async function changeData() {
  }
 }
 
-onMounted(async () => {
- await getData()
- polling()
- updateNotes()
-})
-
 // 5分=300秒に一度データを再取得
-const polling = async () => {
+const fetchData = async () => {
  backgroundImageUrl.value = getRandomImageUrl()
  noteIterationCount.value = 0
  activeNoteNumber.value = 0
  await getData()
  setTimeout(async () => {
   categoryCount.value++
-  polling()
- }, interval)
+  fetchData()
+ }, polling)
 }
 
 // 50秒ごとに付箋の内容を更新
@@ -154,8 +149,11 @@ const updateNotes = () => {
   changeData()
   activeNoteNumber.value++
   updateNotes()
- }, 2000)
+ }, interval)
 }
+
+fetchData()
+updateNotes()
 </script>
 
 <template>
