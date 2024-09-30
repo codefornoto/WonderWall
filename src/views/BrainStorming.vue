@@ -27,15 +27,16 @@ const dataRight = ref<Idea[]>([])
 // 各 StickyNote の表示状態を管理
 const showMessage = ref<boolean[]>(Array(12).fill(true))
 // 初期背景画像のURLをセット
-const backgroundImageUrl = ref('url("src/images/wakura_night_view.jpg")')
+const backgroundImageUrl = ref('url("https://codefornoto.github.io/images/wakura_night_view.jpg")')
+const interval = route.query.interval ? Number(route.query.interval) : 300000
 
 function getRandomImageUrl(): string {
  const imageUrls = [
-  'url("src/images/wakura_night_view.jpg")',
-  'url("src/images/wakura_monument.jpeg")',
-  'url("src/images/wakura_sunset.jpg")',
-  'url("src/images/souyu_day.jpeg")',
-  'url("src/images/souyu_night.jpeg")'
+  'url("https://codefornoto.github.io/images/wakura_night_view.jpg")',
+  'url("https://codefornoto.github.io/images/wakura_monument.jpg")',
+  'url("https://codefornoto.github.io/images/wakura_sunset.jpg")',
+  'url("https://codefornoto.github.io/images/souyu_day.jpg")',
+  'url("https://codefornoto.github.io/images/souyu_night.jpg")'
  ]
  const randomIndex = Math.floor(Math.random() * imageUrls.length)
  return imageUrls[randomIndex]
@@ -138,7 +139,7 @@ const polling = () => {
   activeNoteNumber.value = 0
   await getData()
   polling()
- }, 300000)
+ }, interval)
 }
 
 // 50秒ごとに付箋の内容を更新
