@@ -21,8 +21,8 @@ const noteIterationCount = ref<number>(0)
 const ideaLeft = ref<Idea[]>([])
 const ideaRight = ref<Idea[]>([])
 // 付箋を表示する位置
-const randomNumberLeft = getRandomNumbers(left)
-const randomNumberRight = getRandomNumbers(right)
+const randomNumberLeft = getRandomNumbers(Number(left))
+const randomNumberRight = getRandomNumbers(Number(right))
 // 表示していないデータも含めた全データ
 const dataLeft = ref<Idea[]>([])
 const dataRight = ref<Idea[]>([])
@@ -52,7 +52,6 @@ function getRandomNumbers(sheets: number): number[] {
  if (mode === 'demo') {
   return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
  } else {
-  console.log(shuffled.slice(0, sheets))
   return shuffled.slice(0, sheets)
  }
 }
