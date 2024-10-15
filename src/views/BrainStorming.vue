@@ -19,8 +19,8 @@ const noteIterationCount = ref<number>(0)
 const ideaLeft = ref<Idea[]>([])
 const ideaRight = ref<Idea[]>([])
 // 付箋を表示する位置
-const randomNumberLeft = getRandomNumbers()
-const randomNumberRight = getRandomNumbers()
+const randomNumberLeft = getRandomNumbers(route.query.left ?? 10)
+const randomNumberRight = getRandomNumbers(route.query.right ?? 10)
 // 表示していないデータも含めた全データ
 const dataLeft = ref<Idea[]>([])
 const dataRight = ref<Idea[]>([])
@@ -44,14 +44,14 @@ function getRandomImageUrl(): string {
 }
 
 // 付箋を表示する位置を決定する
-function getRandomNumbers(): number[] {
- const numbers = Array.from({ length: 11 }, (_, i) => i + 1)
+function getRandomNumbers(sheets: number): number[] {
+ const numbers = Array.from({ length: 12 }, (_, i) => i)
  const shuffled = numbers.sort(() => Math.random() - 0.5)
  if (mode === 'demo') {
   return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
  } else {
-  console.log(shuffled.slice(0, 10))
-  return shuffled.slice(0, 10)
+  console.log(shuffled.slice(0, sheets))
+  return shuffled.slice(0, sheets)
  }
 }
 
