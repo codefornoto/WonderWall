@@ -10,6 +10,8 @@ const route = useRoute()
 const mode = route.query.mode
 const left = route.query.left ?? 10
 const right = route.query.right ?? 10
+const polling = route.query.polling ? Number(route.query.polling) * 1000 : 5 * 60 * 1000
+const interval = route.query.interval ? Number(route.query.interval) * 1000 : 50 * 1000
 const categoryList = ref<string[]>([])
 // 表示するカテゴリーの番号
 const categoryCount = ref<number>(0)
@@ -30,8 +32,6 @@ const dataRight = ref<Idea[]>([])
 const showMessage = ref<boolean[]>(Array(12).fill(true))
 // 初期背景画像のURLをセット
 const backgroundImageUrl = ref('url("https://codefornoto.github.io/images/wakura_night_view.jpg")')
-const polling = route.query.polling ? Number(route.query.polling) : 300000
-const interval = route.query.interval ? Number(route.query.interval) : 50000
 
 function getRandomImageUrl(): string {
  const imageUrls = [

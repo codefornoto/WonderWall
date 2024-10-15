@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import logo from '@/images/LOGO_white.png'
 import qr from '@/images/qr.jpg'
+import { mdiCog } from '@mdi/js'
 
 const currentTime = ref('')
 
@@ -56,6 +57,13 @@ onMounted(() => {
   <v-row>
    <v-col>
     <v-img :src="qr" class="mx-auto" height="20vh"></v-img>
+   </v-col>
+  </v-row>
+  <v-row>
+   <v-col class="text-center">
+    <router-link to="/BuildQuery">
+     <v-icon :icon="mdiCog" />
+    </router-link>
    </v-col>
   </v-row>
  </v-container>
