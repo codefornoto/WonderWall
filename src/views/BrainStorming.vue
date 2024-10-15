@@ -8,6 +8,8 @@ import type { Idea } from '@/types/type'
 
 const route = useRoute()
 const mode = route.query.mode
+const left = route.query.left ?? 10
+const right = route.query.right ?? 10
 const categoryList = ref<string[]>([])
 // 表示するカテゴリーの番号
 const categoryCount = ref<number>(0)
@@ -19,8 +21,8 @@ const noteIterationCount = ref<number>(0)
 const ideaLeft = ref<Idea[]>([])
 const ideaRight = ref<Idea[]>([])
 // 付箋を表示する位置
-const randomNumberLeft = getRandomNumbers(route.query.left ?? 10)
-const randomNumberRight = getRandomNumbers(route.query.right ?? 10)
+const randomNumberLeft = getRandomNumbers(left)
+const randomNumberRight = getRandomNumbers(right)
 // 表示していないデータも含めた全データ
 const dataLeft = ref<Idea[]>([])
 const dataRight = ref<Idea[]>([])
