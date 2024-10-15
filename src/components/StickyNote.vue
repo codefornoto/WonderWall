@@ -61,7 +61,7 @@ function getRandomColorCode(): string {
    </v-row>
   </v-card-text>
   <v-row no-gutters>
-   <v-col class="ml-2">{{ Data.ニックネーム }}</v-col>
+   <v-col class="ml-2">{{ Data.ProsCons }}</v-col>
    <v-col class="text-body-2 text-right mr-2">
     <v-icon v-if="Data.カテゴリ.includes('景観')" :icon="mdiHomeCity" />
     <v-icon v-if="Data.カテゴリ.includes('食事')" :icon="mdiFood" />
