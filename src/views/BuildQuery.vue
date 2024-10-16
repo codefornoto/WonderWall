@@ -4,8 +4,8 @@ import { ref } from 'vue'
 const left = ref(10)
 const right = ref(10)
 const sheetName = ref('demo')
-const interval = ref(50)
-const polling = ref(300)
+const background = ref(5 * 60)
+const polling = ref(5 * 60)
 </script>
 
 <template>
@@ -30,8 +30,8 @@ const polling = ref(300)
    </v-col>
    <v-col cols="4">
     <v-text-field
-     label="付箋のデータを更新する間隔（秒数）"
-     v-model="interval"
+     label="背景画像を更新する間隔（秒数）"
+     v-model="background"
      variant="underlined"
     ></v-text-field>
    </v-col>
@@ -52,7 +52,7 @@ const polling = ref(300)
        left: left,
        right: right,
        sheetName: sheetName,
-       interval: interval,
+       background: background,
        polling: polling
       }
      }"
