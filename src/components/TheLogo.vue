@@ -38,7 +38,9 @@ onMounted(() => {
   </v-row>
   <v-row>
    <v-col>
-    <v-img :src="logo" class="mx-auto" height="32vh"></v-img>
+    <router-link to="/BuildQuery">
+     <v-img :src="logo" class="mx-auto" height="32vh"></v-img>
+    </router-link>
    </v-col>
   </v-row>
   <v-row>
@@ -57,13 +59,6 @@ onMounted(() => {
   <v-row>
    <v-col>
     <v-img :src="qr" class="mx-auto" height="20vh"></v-img>
-   </v-col>
-  </v-row>
-  <v-row>
-   <v-col class="text-center">
-    <router-link to="/BuildQuery">
-     <v-icon :icon="mdiCog" />
-    </router-link>
    </v-col>
   </v-row>
  </v-container>
