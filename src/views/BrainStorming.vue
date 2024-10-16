@@ -11,8 +11,8 @@ const mode = route.query.mode
 const left = route.query.left ?? 10
 const right = route.query.right ?? 10
 const polling = route.query.polling ? Number(route.query.polling) * 1000 : 5 * 60 * 1000
-const interval = route.query.interval ? Number(route.query.interval) * 1000 : 50 * 1000
-const categoryList = ref<string[]>([])
+const categoryList = ref<string[]>([''])
+const rawData = ref<Idea[]>([])
 // 表示するカテゴリーの番号
 const categoryCount = ref<number>(0)
 // 変更する付箋の番号
@@ -25,9 +25,6 @@ const ideaRight = ref<Idea[]>([])
 // 付箋を表示する位置
 const randomNumberLeft = getRandomNumbers(Number(left))
 const randomNumberRight = getRandomNumbers(Number(right))
-// 表示していないデータも含めた全データ
-const dataLeft = ref<Idea[]>([])
-const dataRight = ref<Idea[]>([])
 // 各 StickyNote の表示状態を管理
 const showMessage = ref<boolean[]>(Array(12).fill(true))
 // 初期背景画像のURLをセット
@@ -61,13 +58,15 @@ function splitData(data: Idea[]): { data1: Idea[]; data2: Idea[] } {
  const data1: Idea[] = []
  const data2: Idea[] = []
 
- data.forEach((item: any, index: number) => {
-  if (index % 2 === 0) {
-   data1.push(item)
-  } else {
-   data2.push(item)
-  }
- })
+ if (data) {
+  data.forEach((item: any, index: number) => {
+   if (index % 2 === 0) {
+    data1.push(item)
+   } else {
+    data2.push(item)
+   }
+  })
+ }
  return { data1, data2 }
 }
 
@@ -96,36 +95,20 @@ const backgroundStyle = computed(() => ({
 
 // GAS経由でスプシからデータ取得
 async function getData() {
+ // データとカテゴリを取得
+ const { data: ideas, categories } = await DataConverter.get(route.query.sheetName as string)
+ rawData.value = ideas
+ categoryList.value = categories
+}
+function changeCategory() {
  //  カテゴリを一周したらリセット
  if (categoryCount.value == categoryList.value.length) {
   categoryCount.value = 0
  }
- // データとカテゴリを取得
- const { data: ideas, categories } = await DataConverter.get(route.query.sheetName as string)
- categoryList.value = categories
- const sortedIdea = groupByCategory(ideas)
- const { data1, data2 } = splitData(sortedIdea[categories[categoryCount.value]])
- dataLeft.value = data1
- dataRight.value = data2
+ const sortedIdea = groupByCategory(rawData.value)
+ const { data1, data2 } = splitData(sortedIdea[categoryList.value[categoryCount.value]])
  ideaLeft.value = data1
  ideaRight.value = data2
-}
-
-// 表示内容の更新処理
-async function changeData() {
- if (dataLeft.value[activeNoteNumber.value + 12 * (noteIterationCount.value + 1)] !== undefined) {
-  ideaLeft.value[activeNoteNumber.value] =
-   dataLeft.value[activeNoteNumber.value + 12 * (noteIterationCount.value + 1)]
-  ideaRight.value[activeNoteNumber.value] =
-   dataRight.value[activeNoteNumber.value + 12 * (noteIterationCount.value + 1)]
- } else {
-  noteIterationCount.value = 0
- }
-
- //  付箋が最後=12番目まで更新されたら、1枚目に戻る
- if (noteIterationCount.value === 11) {
-  noteIterationCount.value = 0
- }
 }
 
 // 5分=300秒に一度データを再取得
@@ -133,28 +116,17 @@ const fetchData = async () => {
  backgroundImageUrl.value = getRandomImageUrl()
  noteIterationCount.value = 0
  activeNoteNumber.value = 0
- await getData()
+ changeCategory()
  setTimeout(async () => {
   categoryCount.value++
   fetchData()
  }, polling)
 }
 
-// 50秒ごとに付箋の内容を更新
-const updateNotes = () => {
- setTimeout(() => {
-  if (activeNoteNumber.value === 12) {
-   noteIterationCount.value++
-   activeNoteNumber.value = 0
-  }
-  changeData()
-  activeNoteNumber.value++
-  updateNotes()
- }, interval)
-}
-
 fetchData()
-updateNotes()
+onMounted(async () => {
+ await getData()
+})
 </script>
 
 <template>
