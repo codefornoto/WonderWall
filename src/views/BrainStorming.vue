@@ -97,13 +97,14 @@ const backgroundStyle = computed(() => ({
 async function getData() {
  // データとカテゴリを取得
  const { data: ideas, categories } = await DataConverter.get(route.query.sheetName as string)
- rawData.value = ideas
+ rawData.value = DataConverter.shuffleArray(ideas)
  categoryList.value = categories
 }
-function changeCategory() {
+async function changeCategory() {
  //  カテゴリを一周したらリセット
  if (categoryCount.value == categoryList.value.length) {
   categoryCount.value = 0
+  await getData()
  }
  const sortedIdea = groupByCategory(rawData.value)
  const { data1, data2 } = splitData(sortedIdea[categoryList.value[categoryCount.value]])
@@ -123,9 +124,9 @@ const fetchData = async () => {
  }, polling)
 }
 
-fetchData()
 onMounted(async () => {
  await getData()
+ fetchData()
 })
 </script>
 
