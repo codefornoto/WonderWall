@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import logo from '@/images/LOGO_white.png'
-import qr from '@/images/qr.jpg'
-import { mdiCog } from '@mdi/js'
+import { useRoute } from 'vue-router'
 
 const currentTime = ref('')
 
@@ -10,6 +9,9 @@ const updateTime = () => {
  const now = new Date()
  currentTime.value = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
+
+const route = useRoute()
+const qr = route.query.form ? (route.query.form as string) : 'qr_form1.jpg'
 
 onMounted(() => {
  updateTime()
@@ -58,7 +60,11 @@ onMounted(() => {
   </v-row>
   <v-row>
    <v-col>
-    <v-img :src="qr" class="mx-auto" height="20vh"></v-img>
+    <v-img
+     :src="'https://codefornoto.github.io/images/' + qr"
+     class="mx-auto"
+     height="20vh"
+    ></v-img>
    </v-col>
   </v-row>
  </v-container>
