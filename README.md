@@ -48,3 +48,35 @@ npm run lint
 - left: 左側に表示する付箋の数を指定。指定しない場合は10枚
 - right: 右側に表示する付箋の数を指定。指定しない場合は10枚
 - mode: demoを指定するとデバッグモードになる（通常使用しない）
+
+## 運用
+
+### フォーム追加運用
+
+下記のレポジトリにある画像をファイル名で指定することで表示している。
+QRコードを作成し、以下のレポジトリに追加、クエリパラメーターでファイル名を指定する流れで運用する。
+https://github.com/codefornoto/images
+
+1. フォーム追加
+2. qrコード発行~追加
+
+### フォーム追加
+
+既存フォームからコピーして作成
+
+<img src="./images/ope_10.png" width="300px" height="300px">
+<img src="./images/ope_11.png" width="300px" height="300px">
+<img src="./images/ope_12.png" width="300px" height="300px">
+<img src="./images/ope_20.png" width="300px" height="300px">
+<img src="./images/ope_21.png" width="300px" height="300px">
+<img src="./images/ope_22.png" width="300px" height="300px">
+<img src="./images/ope_30.png" width="300px" height="300px">
+<img src="./images/ope_31.png" width="300px" height="300px">
+
+### QRコード発行~追加
+
+作成したフォームは無料の作成サイト、もしくは以下のmacショートカットから作成。
+https://www.icloud.com/shortcuts/49303f89df024076aabad3a695cde28f
+
+下記のレポジトリに作成したQRコードの画像を追加
+https://github.com/codefornoto/images

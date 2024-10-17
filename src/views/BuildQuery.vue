@@ -6,6 +6,7 @@ const right = ref(10)
 const sheetName = ref('demo')
 const background = ref(5 * 60)
 const polling = ref(5 * 60)
+const form = ref('qr_form1.jpg')
 </script>
 
 <template>
@@ -42,6 +43,13 @@ const polling = ref(5 * 60)
      variant="underlined"
     ></v-text-field>
    </v-col>
+   <v-col cols="4">
+    <v-text-field
+     label="フォームのQRコードを指定"
+     v-model="form"
+     variant="underlined"
+    ></v-text-field>
+   </v-col>
   </v-row>
   <v-row>
    <v-col>
@@ -53,7 +61,8 @@ const polling = ref(5 * 60)
        right: right,
        sheetName: sheetName,
        background: background,
-       polling: polling
+       polling: polling,
+       form: form
       }
      }"
     >
