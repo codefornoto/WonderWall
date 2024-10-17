@@ -14,6 +14,7 @@ const polling = route.query.polling ? Number(route.query.polling) * 1000 : 5 * 6
 const backgroundInterval = route.query.background
  ? Number(route.query.background) * 1000
  : 5 * 60 * 1000
+const sheetName = route.query.sheetName ? (route.query.sheetName as string) : 'demo'
 const categoryList = ref<string[]>([''])
 const rawData = ref<Idea[]>([])
 const isFading = ref(true)
@@ -101,11 +102,11 @@ const backgroundStyle = computed(() => ({
 
 // GAS経由でスプシからデータ取得
 async function getData() {
- // データとカテゴリを取得
- const { data: ideas, categories } = await DataConverter.get(route.query.sheetName as string)
+ const { data: ideas, categories } = await DataConverter.get(sheetName)
  rawData.value = DataConverter.shuffleArray(ideas)
  categoryList.value = categories
 }
+
 async function changeCategory() {
  //  カテゴリを一周したらリセット
  if (categoryCount.value == categoryList.value.length) {
@@ -118,7 +119,7 @@ async function changeCategory() {
  ideaRight.value = data2
 }
 
-// 指定した秒数ごとに背景画像を更新する
+// 背景画像を更新
 const refreshBackground = () => {
  backgroundImageUrl.value = getRandomImageUrl()
  setTimeout(() => {
@@ -126,7 +127,7 @@ const refreshBackground = () => {
  }, backgroundInterval)
 }
 
-// 5分=300秒に一度データを再取得
+// バックエンド（GAS）からデータを再取得
 const fetchData = async () => {
  backgroundImageUrl.value = getRandomImageUrl()
  noteIterationCount.value = 0
@@ -146,11 +147,13 @@ onMounted(async () => {
 
 // 画像変更時のフェード処理
 watch(backgroundImageUrl, () => {
- isFading.value = false // フェードアウト
+ // フェードアウト
+ isFading.value = false
  setTimeout(() => {
-  // 背景画像の変更とフェードイン
+  // フェードイン
   isFading.value = true
- }, 1) // フェードアウトが完了するタイミングに合わせる
+  // フェードアウトが完了するタイミングに合わせる
+ }, 1)
 })
 </script>
 

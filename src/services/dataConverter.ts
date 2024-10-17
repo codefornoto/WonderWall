@@ -24,7 +24,7 @@ class DataConverter {
  async get(sheetName: string): Promise<{ data: Idea[]; categories: string[] }> {
   const params = {
    crossDomain: true,
-   sheetName: sheetName ? sheetName : `answers`
+   sheetName: sheetName
   }
   const result = await http.get(url, { params })
   const data = result.data.map((idea: Idea, idx: number) => ({ ...idea, index: idx + 0 })) as Idea[]
