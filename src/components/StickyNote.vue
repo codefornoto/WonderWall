@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import type { Idea } from '@/types/type'
+import { useRoute } from 'vue-router'
+
 import { mdiFood } from '@mdi/js'
 import { mdiHumanMaleMaleChild } from '@mdi/js'
 import { mdiTicket } from '@mdi/js'
@@ -7,8 +10,9 @@ import { mdiRoad } from '@mdi/js'
 import { mdiStadium } from '@mdi/js'
 import { mdiHomeCity } from '@mdi/js'
 import { mdiLightbulb } from '@mdi/js'
-import type { Idea } from '@/types/type'
-import { useRoute } from 'vue-router'
+import { mdiAirplane } from '@mdi/js'
+import { mdiAccountHardHat } from '@mdi/js'
+import { mdiSchool } from '@mdi/js'
 
 const route = useRoute()
 const mode = route.query.mode
@@ -69,8 +73,10 @@ function getRandomColorCode(): string {
     <v-icon v-if="Data.カテゴリ.includes('施設')" :icon="mdiStadium" />
     <v-icon v-if="Data.カテゴリ.includes('アクティビティ')" :icon="mdiTicket" />
     <v-icon v-if="Data.カテゴリ.includes('人')" :icon="mdiHumanMaleMaleChild" />
-    <v-icon v-if="Data.カテゴリ.includes('その他')" :icon="mdiLightbulb" />
-    <!-- <v-icon v-else :icon="mdiCity" /> -->
+    <v-icon v-if="Data.カテゴリ.includes('観光')" :icon="mdiAirplane" />
+    <v-icon v-if="Data.カテゴリ.includes('防災')" :icon="mdiAccountHardHat" />
+    <v-icon v-if="Data.カテゴリ.includes('子育て')" :icon="mdiHumanMaleMaleChild" />
+    <v-icon v-if="Data.カテゴリ.includes('その他')" :icon="mdiSchool" />
    </v-col>
   </v-row>
  </v-card>
