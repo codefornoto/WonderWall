@@ -1,6 +1,4 @@
-# StickyNotes
-
-This template should help get you started developing with Vue 3 in Vite.
+# WanderWall
 
 ## Recommended IDE Setup
 
@@ -40,14 +38,11 @@ npm run lint
 
 ## アプリケーションの使い方
 
-### [クエリパラメーター](https://developer.mozilla.org/ja/docs/Web/URI#%E3%82%AF%E3%82%A8%E3%83%AA%E3%83%BC)
-
-- sheetName: スプレッドシートのシート名を指定してデータを取得できる。指定しない場合は、フォームから回答されたシート（answers）から取得
-- interval: 付箋の内容を更新する間隔を秒数で指定。指定しない場合は50秒
-- polling: カテゴリが切り替わるまでの時間を秒数で指定。指定しない場合は5分（300秒）
-- left: 左側に表示する付箋の数を指定。指定しない場合は10枚
-- right: 右側に表示する付箋の数を指定。指定しない場合は10枚
-- mode: demoを指定するとデバッグモードになる（通常使用しない）
+- 取得するデータは[スプレッドシート](https://docs.google.com/spreadsheets/d/1XBUGCAwoNopXpmxZ1bAN5eofScOlkcV_riqpUTgHRQo/edit?gid=169291098#gid=169291098)の特定のシートをアプリから指定して取得する。シートのヘッダーは自由に設定することができないため、シート追加後はヘッダーがdemoシートと同様になるように変更すること。
+- [WanderWall(GitHub版)](https://codefornoto.github.io/WonderWall/)の場合、
+  ロゴ画像をクリックすると設定画面に遷移。背景や表示する付箋の数を変更することが可能。
+  （仕組みとしては[クエリパラメーター](https://developer.mozilla.org/ja/docs/Web/URI#%E3%82%AF%E3%82%A8%E3%83%AA%E3%83%BC)を利用して各種設定を変更している。設定画面はクエリパラメーターを設定するための補助画面の位置付け）
+- 設定は各サイトに合わせて保存できるようにしている。保存先はブラウザのため、異なるPC/ブラウザ間では共有されない。
 
 ## 運用
 

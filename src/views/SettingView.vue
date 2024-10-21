@@ -122,7 +122,34 @@ router.beforeEach((to, from, next) => {
     </v-row>
    </v-col>
   </v-row>
+
   <v-row>
+   <v-col cols="2"> 設定保存 </v-col>
+   <v-col cols="3">
+    <v-text-field
+     label="設定名（設定呼出時に使用）"
+     v-model="setting.settingKey"
+     variant="underlined"
+    >
+    </v-text-field>
+   </v-col>
+   <v-col cols="3">
+    <v-btn @click="saveSettings(setting.settingKey)"> 入力した名前で設定保存 </v-btn>
+   </v-col>
+  </v-row>
+  <v-row>
+   <v-col cols="2"> 設定呼び出し </v-col>
+   <v-col cols="3">
+    <v-select
+     label="呼び出す設定を選択"
+     v-model="selectedStorageKey"
+     :items="settingList"
+     variant="underlined"
+    ></v-select>
+   </v-col>
+  </v-row>
+  <v-row>
+   <v-col cols="5"></v-col>
    <v-col cols="4">
     <router-link
      :to="{
@@ -139,31 +166,6 @@ router.beforeEach((to, from, next) => {
     >
      Wander Wallを表示
     </router-link>
-   </v-col>
-  </v-row>
-  <v-row>
-   <v-col cols="2"> 設定保存 </v-col>
-   <v-col cols="5">
-    <v-text-field
-     label="設定名（設定呼出時に使用）"
-     v-model="setting.settingKey"
-     variant="underlined"
-    >
-    </v-text-field>
-   </v-col>
-   <v-col cols="5">
-    <v-btn @click="saveSettings(setting.settingKey)"> 入力した名前で設定保存 </v-btn>
-   </v-col>
-  </v-row>
-  <v-row>
-   <v-col cols="2"> 設定呼び出し </v-col>
-   <v-col>
-    <v-select
-     label="呼び出す設定を選択"
-     v-model="selectedStorageKey"
-     :items="settingList"
-     variant="underlined"
-    ></v-select>
    </v-col>
   </v-row>
  </v-container>
