@@ -58,15 +58,15 @@ function getRandomColorCode(): string {
 
 <template>
  <v-card v-if="Data.visibility" :color="color" height="22vh" width="22vh">
-  <v-card-text height="21vh">
-   <v-row align="center" no-gutters>
+  <v-card-text height="21vh" class="pa-1">
+   <v-row no-gutters>
     <v-col v-show="mode === 'demo'">{{ Data.index }}</v-col>
-    <v-col class="text-body-1"> {{ Data.アイデア }} </v-col>
+    <v-col align="center"> {{ Data.アイデア }} </v-col>
    </v-row>
   </v-card-text>
-  <v-row no-gutters>
-   <v-col class="ml-2">{{ Data.ProsCons }}</v-col>
-   <v-col class="text-body-2 text-right mr-2">
+  <v-row no-gutters class="px-2" style="font-size: 12px">
+   <v-col>{{ Data.ProsCons }}</v-col>
+   <v-col class="text-right mr-2">
     <v-icon v-if="Data.カテゴリ.includes('景観')" :icon="mdiHomeCity" />
     <v-icon v-if="Data.カテゴリ.includes('食事')" :icon="mdiFood" />
     <v-icon v-if="Data.カテゴリ.includes('インフラ')" :icon="mdiRoad" />
@@ -82,8 +82,9 @@ function getRandomColorCode(): string {
  </v-card>
 </template>
 
-<style>
+<style scoped>
 .v-card-text {
  height: 19vh;
+ font-size: 13px;
 }
 </style>
