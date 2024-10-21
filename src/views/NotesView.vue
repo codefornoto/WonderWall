@@ -11,9 +11,7 @@ const mode = route.query.mode
 const left = route.query.left ?? 10
 const right = route.query.right ?? 10
 const polling = route.query.polling ? Number(route.query.polling) * 1000 : 5 * 60 * 1000
-const backgroundInterval = route.query.background
- ? Number(route.query.background) * 1000
- : 5 * 60 * 1000
+const backgroundImage = route.query.background ? route.query.background : 'wakura_night_view.jpg'
 const sheetName = route.query.sheetName ? (route.query.sheetName as string) : 'demo'
 const categoryList = ref<string[]>([''])
 const rawData = ref<Idea[]>([])
@@ -32,20 +30,6 @@ const randomNumberLeft = getRandomNumbers(Number(left))
 const randomNumberRight = getRandomNumbers(Number(right))
 // 各 StickyNote の表示状態を管理
 const showMessage = ref<boolean[]>(Array(12).fill(true))
-// 初期背景画像のURLをセット
-const backgroundImageUrl = ref('url("https://codefornoto.github.io/images/wakura_night_view.jpg")')
-
-function getRandomImageUrl(): string {
- const imageUrls = [
-  'url("https://codefornoto.github.io/images/wakura_night_view.jpg")',
-  'url("https://codefornoto.github.io/images/wakura_monument.jpg")',
-  'url("https://codefornoto.github.io/images/wakura_sunset.jpg")',
-  'url("https://codefornoto.github.io/images/souyu_day.jpg")',
-  'url("https://codefornoto.github.io/images/souyu_night.jpg")'
- ]
- const randomIndex = Math.floor(Math.random() * imageUrls.length)
- return imageUrls[randomIndex]
-}
 
 // 付箋を表示する位置を決定する
 function getRandomNumbers(sheets: number): number[] {
@@ -91,7 +75,7 @@ function groupByCategory(ideas: Idea[]): Record<string, Idea[]> {
 
 // 背景スタイルを動的に生成
 const backgroundStyle = computed(() => ({
- backgroundImage: backgroundImageUrl.value,
+ backgroundImage: 'url(https://codefornoto.github.io/images/' + backgroundImage + ')',
  backgroundSize: 'cover',
  backgroundPosition: 'center',
  width: '100vw',
@@ -119,17 +103,8 @@ async function changeCategory() {
  ideaRight.value = data2
 }
 
-// 背景画像を更新
-const refreshBackground = () => {
- backgroundImageUrl.value = getRandomImageUrl()
- setTimeout(() => {
-  refreshBackground()
- }, backgroundInterval)
-}
-
 // バックエンド（GAS）からデータを再取得
 const fetchData = async () => {
- backgroundImageUrl.value = getRandomImageUrl()
  noteIterationCount.value = 0
  activeNoteNumber.value = 0
  changeCategory()
@@ -142,18 +117,6 @@ const fetchData = async () => {
 onMounted(async () => {
  await getData()
  fetchData()
- refreshBackground()
-})
-
-// 画像変更時のフェード処理
-watch(backgroundImageUrl, () => {
- // フェードアウト
- isFading.value = false
- setTimeout(() => {
-  // フェードイン
-  isFading.value = true
-  // フェードアウトが完了するタイミングに合わせる
- }, 1)
 })
 </script>
 

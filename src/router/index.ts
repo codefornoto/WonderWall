@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BrainStorming from '../views/BrainStorming.vue'
-import BuildQuery from '../views/BuildQuery.vue'
+import NotesView from '../views/NotesView.vue'
+import SettingView from '../views/SettingView.vue'
 
 const router = createRouter({
  history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,12 +8,12 @@ const router = createRouter({
   {
    path: '/',
    name: 'WonderWall',
-   component: BrainStorming
+   component: NotesView
   },
   {
-   path: '/BuildQuery',
-   name: 'BuildQuery',
-   component: BuildQuery
+   path: '/SettingView',
+   name: 'SettingView',
+   component: SettingView
   }
  ]
 })
