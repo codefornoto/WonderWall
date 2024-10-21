@@ -40,7 +40,7 @@ onMounted(() => {
   </v-row>
   <v-row>
    <v-col>
-    <router-link to="/BuildQuery">
+    <router-link to="/SettingView">
      <v-img :src="logo" class="mx-auto" height="32vh"></v-img>
     </router-link>
    </v-col>
