@@ -9,7 +9,6 @@ import { mdiTicket } from '@mdi/js'
 import { mdiRoad } from '@mdi/js'
 import { mdiStadium } from '@mdi/js'
 import { mdiHomeCity } from '@mdi/js'
-import { mdiLightbulb } from '@mdi/js'
 import { mdiAirplane } from '@mdi/js'
 import { mdiAccountHardHat } from '@mdi/js'
 import { mdiSchool } from '@mdi/js'
@@ -18,10 +17,10 @@ const route = useRoute()
 const mode = route.query.mode
 const props = withDefaults(defineProps<Idea>(), {
  index: 0,
- アイデア: '',
- カテゴリ: '',
- タイムスタンプ: '',
- ニックネーム: '',
+ idea: '',
+ category: '',
+ timestamp: '',
+ name: '',
  ProsCons: '',
  visibility: false
 })
@@ -59,24 +58,26 @@ function getRandomColorCode(): string {
 <template>
  <v-card v-if="Data.visibility" :color="color" height="22vh" width="22vh">
   <v-card-text height="21vh" class="pa-1">
-   <v-row no-gutters>
-    <v-col v-show="mode === 'demo'">{{ Data.index }}</v-col>
-    <v-col align="center"> {{ Data.アイデア }} </v-col>
+   <v-row no-gutters class="fill-height" align="center" justify="center">
+    <v-col align="center" class="d-flex justify-center">
+     {{ Data.idea }}
+    </v-col>
    </v-row>
   </v-card-text>
+
   <v-row no-gutters class="px-2" style="font-size: 12px">
    <v-col>{{ Data.ProsCons }}</v-col>
    <v-col class="text-right mr-2">
-    <v-icon v-if="Data.カテゴリ.includes('景観')" :icon="mdiHomeCity" />
-    <v-icon v-if="Data.カテゴリ.includes('食事')" :icon="mdiFood" />
-    <v-icon v-if="Data.カテゴリ.includes('インフラ')" :icon="mdiRoad" />
-    <v-icon v-if="Data.カテゴリ.includes('施設')" :icon="mdiStadium" />
-    <v-icon v-if="Data.カテゴリ.includes('アクティビティ')" :icon="mdiTicket" />
-    <v-icon v-if="Data.カテゴリ.includes('人')" :icon="mdiHumanMaleMaleChild" />
-    <v-icon v-if="Data.カテゴリ.includes('観光')" :icon="mdiAirplane" />
-    <v-icon v-if="Data.カテゴリ.includes('防災')" :icon="mdiAccountHardHat" />
-    <v-icon v-if="Data.カテゴリ.includes('子育て')" :icon="mdiHumanMaleMaleChild" />
-    <v-icon v-if="Data.カテゴリ.includes('その他')" :icon="mdiSchool" />
+    <v-icon v-if="Data.category.includes('景観')" :icon="mdiHomeCity" />
+    <v-icon v-if="Data.category.includes('食事')" :icon="mdiFood" />
+    <v-icon v-if="Data.category.includes('インフラ')" :icon="mdiRoad" />
+    <v-icon v-if="Data.category.includes('施設')" :icon="mdiStadium" />
+    <v-icon v-if="Data.category.includes('アクティビティ')" :icon="mdiTicket" />
+    <v-icon v-if="Data.category.includes('人')" :icon="mdiHumanMaleMaleChild" />
+    <v-icon v-if="Data.category.includes('観光')" :icon="mdiAirplane" />
+    <v-icon v-if="Data.category.includes('防災')" :icon="mdiAccountHardHat" />
+    <v-icon v-if="Data.category.includes('子育て')" :icon="mdiHumanMaleMaleChild" />
+    <v-icon v-if="Data.category.includes('その他')" :icon="mdiSchool" />
    </v-col>
   </v-row>
  </v-card>

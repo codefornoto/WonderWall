@@ -63,10 +63,10 @@ function splitData(data: Idea[]): { data1: Idea[]; data2: Idea[] } {
 function groupByCategory(ideas: Idea[]): Record<string, Idea[]> {
  return ideas.reduce(
   (acc, idea) => {
-   if (!acc[idea.カテゴリ]) {
-    acc[idea.カテゴリ] = []
+   if (!acc[idea.category]) {
+    acc[idea.category] = []
    }
-   acc[idea.カテゴリ].push(idea)
+   acc[idea.category].push(idea)
    return acc
   },
   {} as Record<string, Idea[]>

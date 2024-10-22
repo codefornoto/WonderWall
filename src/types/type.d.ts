@@ -1,9 +1,9 @@
 export type Idea = {
  index: number
  ProsCons: string
- アイデア: string
- カテゴリ: string
- タイムスタンプ: string
- ニックネーム: string
+ idea: string
+ category: string
+ timestamp: string
+ name: string
  visibility: boolean
 }
