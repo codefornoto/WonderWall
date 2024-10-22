@@ -30,6 +30,12 @@ watch(selectedStorageKey, () => {
 
 function saveSettings(key: string) {
  localStorage.setItem(key, JSON.stringify(setting))
+ settingList.value = getSettingList()
+}
+
+function deleteSetting(key: string) {
+ localStorage.removeItem(key)
+ settingList.value = getSettingList()
 }
 
 function getLocalStorageData(key: string) {
@@ -40,11 +46,16 @@ function getLocalStorageData(key: string) {
  }
 }
 
-for (const key in localStorage) {
- if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
-  settingList.value.push(key)
- }
+function getSettingList() {
+ let tmpObj: string[] = []
+ Object.keys(localStorage).forEach((key) => {
+  tmpObj.push(key)
+ })
+
+ return tmpObj
 }
+
+settingList.value = getSettingList()
 getLocalStorageData('latest')
 
 router.beforeEach((to, from, next) => {
@@ -135,6 +146,9 @@ router.beforeEach((to, from, next) => {
    </v-col>
    <v-col cols="3">
     <v-btn @click="saveSettings(setting.settingKey)"> 入力した名前で設定保存 </v-btn>
+   </v-col>
+   <v-col cols="3">
+    <v-btn @click="deleteSetting(setting.settingKey)"> 設定を削除 </v-btn>
    </v-col>
   </v-row>
   <v-row>
