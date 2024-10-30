@@ -6,6 +6,7 @@ const router = useRouter()
 const selectedStorageKey = ref('')
 const settingList = ref([''])
 const backgroundList = ref([
+ 'monzen01.jpg',
  'souyu_day.jpg',
  'souyu_night.jpg',
  'wakura_monument.jpg',
