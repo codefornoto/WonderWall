@@ -56,7 +56,7 @@ function getRandomColorCode(): string {
 </script>
 
 <template>
- <v-card v-if="Data.visibility" :color="color" height="22vh" width="22vh">
+ <v-card v-if="Data.visibility" :color="color" height="21.5vh" width="22vh">
   <v-card-text height="21vh" class="pa-1">
    <v-row no-gutters class="fill-height" align="center" justify="center">
     <v-col align="center" class="d-flex justify-center">
@@ -85,7 +85,7 @@ function getRandomColorCode(): string {
 
 <style scoped>
 .v-card-text {
- height: 19vh;
+ height: 18vh;
  font-size: 14px;
 }
 </style>
