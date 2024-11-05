@@ -141,7 +141,7 @@ onMounted(async () => {
     </v-row>
    </v-col>
    <!-- 真ん中 -->
-   <v-col cols="2" class="ma-0 pa-0">
+   <v-col cols="2">
     <div v-show="mode === 'demo'">
      {{ categoryCount }} : {{ activeNoteNumber }} : {{ noteIterationCount }}
     </div>

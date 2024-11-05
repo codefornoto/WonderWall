@@ -20,8 +20,8 @@ onMounted(() => {
 </script>
 
 <template>
- <v-container>
-  <v-row>
+ <v-container class="pa-0">
+  <v-row class="mt-1">
    <v-col class="text-center">
     <v-row>
      <v-col>
