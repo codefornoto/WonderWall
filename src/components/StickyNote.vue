@@ -86,6 +86,6 @@ function getRandomColorCode(): string {
 <style scoped>
 .v-card-text {
  height: 19vh;
- font-size: 13px;
+ font-size: 14px;
 }
 </style>
