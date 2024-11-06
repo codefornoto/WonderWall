@@ -79,9 +79,7 @@ const backgroundStyle = computed(() => ({
  backgroundSize: 'cover',
  backgroundPosition: 'center',
  width: '100vw',
- height: '100vh',
- transition: 'opacity 1s',
- opacity: isFading.value ? 1 : 0
+ height: '100vh'
 }))
 
 // GAS経由でスプシからデータ取得
@@ -121,7 +119,7 @@ onMounted(async () => {
 </script>
 
 <template>
- <v-container fluid :style="backgroundStyle">
+ <v-container fluid :style="backgroundStyle" fill-height>
   <v-row>
    <!-- 左側 -->
    <v-col cols="5">
@@ -143,7 +141,7 @@ onMounted(async () => {
     </v-row>
    </v-col>
    <!-- 真ん中 -->
-   <v-col cols="2" class="ma-0 pa-0">
+   <v-col cols="2">
     <div v-show="mode === 'demo'">
      {{ categoryCount }} : {{ activeNoteNumber }} : {{ noteIterationCount }}
     </div>

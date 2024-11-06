@@ -20,8 +20,8 @@ onMounted(() => {
 </script>
 
 <template>
- <v-container>
-  <v-row>
+ <v-container class="pa-0">
+  <v-row class="mt-1">
    <v-col class="text-center">
     <v-row>
      <v-col>
@@ -39,9 +39,9 @@ onMounted(() => {
    </v-col>
   </v-row>
   <v-row>
-   <v-col>
+   <v-col class="py-0">
     <router-link to="/SettingView">
-     <v-img :src="logo" class="mx-auto" height="32vh"></v-img>
+     <v-img :src="logo" class="mx-auto" height="30vh"></v-img>
     </router-link>
    </v-col>
   </v-row>
@@ -63,7 +63,7 @@ onMounted(() => {
     <v-img
      :src="'https://codefornoto.github.io/images/' + qr"
      class="mx-auto"
-     height="20vh"
+     height="21vh"
     ></v-img>
    </v-col>
   </v-row>

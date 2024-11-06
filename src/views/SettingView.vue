@@ -22,7 +22,8 @@ let setting = reactive({
  background: 'wakura_night_view.jpg',
  polling: 5 * 60,
  form: 'qr_form1.jpg',
- settingKey: 'latest'
+ settingKey: 'latest',
+ style: 'font-weight-bold'
 })
 
 watch(selectedStorageKey, () => {
@@ -98,6 +99,9 @@ router.beforeEach((to, from, next) => {
        v-model="setting.polling"
        variant="underlined"
       ></v-text-field>
+     </v-col>
+     <v-col cols="3">
+      <v-text-field label="フォント" v-model="setting.style" variant="underlined"></v-text-field>
      </v-col>
      <v-col cols="4">
       <v-select
@@ -175,7 +179,8 @@ router.beforeEach((to, from, next) => {
        sheetName: setting.sheetName,
        background: setting.background,
        polling: setting.polling,
-       form: setting.form
+       form: setting.form,
+       style: setting.style
       }
      }"
     >
